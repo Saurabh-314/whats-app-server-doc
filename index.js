@@ -30,6 +30,7 @@ io.on('connection', (socket) => {
   //send message
   socket.on('sendMessage', (data) => {
     io.to(data.receiverId).emit('getMessage', data)
+    io.to(data.senderId).emit('getMessage', data)
   })
 
   //disconnect

@@ -11,7 +11,7 @@ module.exports.addUser = async (req, res) => {
     return res.status(201).json(newUser);
 
   } catch (error) {
-    res.status(500), json(error)
+    res.status(500).json(error)
   }
 }
 module.exports.getUser = async (req, res) => {
