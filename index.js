@@ -16,9 +16,6 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cors());
 app.use('/', Routes);
 
-app.get("/", (req, res) => {
-  res.send("hell its working...");
-})
 
 // Database connection
 Connection();
@@ -26,12 +23,18 @@ Connection();
 io.on('connection', (socket) => {
   console.log("a user connected");
 
-  socket.on("join", () => {
-    console.log("join user");
+  socket.on("addUser", (userData) => {
+    socket.join(userData.sub);
   })
 
+  //send message
+  socket.on('sendMessage', (data) => {
+    io.to(data.receiverId).emit('getMessage', data)
+  })
+
+  //disconnect
   socket.on('disconnect', () => {
-    console.log("user disconnected");
+    console.log('user disconnected');
   })
 })
 
