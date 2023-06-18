@@ -12,10 +12,15 @@ const PORT = process.env.PORT || 8000;
 
 app.get("/", (req, res) => {
   res.send("hell its working...");
-}) 
+})
 
 io.on('connection', (socket) => {
   console.log("a user connected");
+
+  socket.on("join", () => {
+    console.log("join user");
+  })
+
   socket.on('disconnect', () => {
     console.log("user disconnected");
   })
